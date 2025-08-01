@@ -8,6 +8,7 @@ import { sendMessage } from '@/app/actions';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 import { Skeleton } from '../ui/skeleton';
+import { useAuth } from '@/components/auth-provider';
 
 interface MessageInputProps {
   chatId: string;
@@ -19,10 +20,13 @@ interface MessageInputProps {
 export function MessageInput({ chatId, suggestions, isGeneratingSuggestions, onMessageSent }: MessageInputProps) {
   const [message, setMessage] = useState('');
   const { toast } = useToast();
+  const { user, loading } = useAuth(); 
 
   const handleSend = async (text: string) => {
     if (!text.trim()) return;
+    console.log(chatId, text)
     try {
+      console.log("sending message", text)
       await sendMessage(chatId, text);
       setMessage('');
       onMessageSent();
@@ -37,6 +41,7 @@ export function MessageInput({ chatId, suggestions, isGeneratingSuggestions, onM
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("submitting message", message)
     handleSend(message);
   };
 

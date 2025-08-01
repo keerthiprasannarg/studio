@@ -47,6 +47,7 @@ export default function RegisterPage() {
         description: error.message,
         variant: 'destructive',
       });
+      console.log("failed registration", error.message)
     } finally {
       setLoading(false);
     }

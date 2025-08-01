@@ -6,6 +6,9 @@ import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 
 export async function sendMessage(chatId: string, messageText: string) {
   const currentUser = auth.currentUser;
+  console.log("currentUser", currentUser)
+  console.log("chatId", chatId)
+  console.log("messageText", messageText)
   if (!currentUser) {
     throw new Error('User is not authenticated.');
   }

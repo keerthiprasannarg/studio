@@ -51,6 +51,7 @@ export function ChatPanel({ currentUser, selectedUser }: ChatPanelProps) {
       />
       <MessageInput
         chatId={chatId}
+        currentUser = {currentUser}
         suggestions={suggestions}
         isGeneratingSuggestions={isGenerating}
         onMessageSent={() => handleNewMessage({} as Message)} // a bit of a hack to clear suggestions

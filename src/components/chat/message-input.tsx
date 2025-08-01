@@ -9,25 +9,26 @@ import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 import { Skeleton } from '../ui/skeleton';
 import { useAuth } from '@/components/auth-provider';
+import type { User, Message } from '@/types';
 
 interface MessageInputProps {
   chatId: string;
+  currentUser: User;
   suggestions: string[];
   isGeneratingSuggestions: boolean;
   onMessageSent: () => void;
 }
 
-export function MessageInput({ chatId, suggestions, isGeneratingSuggestions, onMessageSent }: MessageInputProps) {
+export function MessageInput({ chatId,  currentUser, suggestions, isGeneratingSuggestions, onMessageSent }: MessageInputProps) {
   const [message, setMessage] = useState('');
   const { toast } = useToast();
   const { user, loading } = useAuth(); 
 
   const handleSend = async (text: string) => {
     if (!text.trim()) return;
-    console.log(chatId, text)
     try {
       console.log("sending message", text)
-      await sendMessage(chatId, text);
+      await sendMessage(chatId, text, currentUser);
       setMessage('');
       onMessageSent();
     } catch (error: any) {

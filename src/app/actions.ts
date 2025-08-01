@@ -2,13 +2,10 @@
 
 import { auth, db } from '@/lib/firebase';
 import { Message } from '@/types';
+import { User } from 'firebase/auth';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 
-export async function sendMessage(chatId: string, messageText: string) {
-  const currentUser = auth.currentUser;
-  console.log("currentUser", currentUser)
-  console.log("chatId", chatId)
-  console.log("messageText", messageText)
+export async function sendMessage(chatId: string, messageText: string, currentUser: User) {
   if (!currentUser) {
     throw new Error('User is not authenticated.');
   }
